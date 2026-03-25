@@ -18,3 +18,10 @@ dotnet ef database update
 
 # 3. Start system interface
 dotnet run
+
+
+
+
+### 🔄 Database Evolution
+* **Migration Strategy:** Utilized EF Core Migrations to implement "Soft Delete" functionality via an `IsActive` boolean flag.
+* **Schema Resilience:** Navigated SQLite table-rebuild constraints (PRAGMA foreign_keys) to ensure zero data loss during structural updates.
