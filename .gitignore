@@ -1,0 +1,43 @@
+# .NET/C# build outputs
+[Bb]in/
+[Oo]bj/
+out/
+artifacts/
+
+# Visual Studio / VS Code / Rider
+.vs/
+.vscode/*
+!.vscode/settings.json
+!.vscode/extensions.json
+.idea/
+*.suo
+*.user
+*.userosscache
+*.rsuser
+*.sln.docstates
+*.sln.iml
+
+# NuGet packages and symbols
+packages/
+*.nupkg
+*.snupkg
+
+# Test and coverage outputs
+TestResults/
+coverage/
+*.coverage
+*.coveragexml
+
+# Logs and temp files
+*.log
+*.tmp
+*.temp
+
+# Local database/runtime artifacts (SQLite)
+*.db
+*.db-shm
+*.db-wal
+
+# OS files
+.DS_Store
+Thumbs.db
