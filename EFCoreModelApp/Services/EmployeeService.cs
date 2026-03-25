@@ -7,7 +7,8 @@ public class EmployeeService(HRDbContext context)
     public void ListAllEmployees()
     {
         var employeeList = context.Employees
-            .Include(e => e.Department) 
+            .Include(e => e.Department)
+            .Where(e => e.IsActive)
             .ToList(); 
         
         Console.WriteLine("\n--- Current Employee Registry ---");
@@ -62,4 +63,53 @@ public class EmployeeService(HRDbContext context)
         context.SaveChanges();
         Console.WriteLine($"\n[System Update]: {emp.FirstName} added successfully.");
     }
-}
+
+    public void DeactivateEmployee()
+    {
+        Console.Write("\nEnter Employee ID to deactivate: ");
+        if (!int.TryParse(Console.ReadLine(), out int empId))
+            return;
+
+
+        var emp = context.Employees.FirstOrDefault(e => e.EmployeeId == empId);
+
+        if (emp == null)
+        {
+            Console.WriteLine("[Error]: Employee not found. High-level abort triggered.");
+            return;
+        }
+
+        emp.IsActive = false;
+        context.SaveChanges();
+        Console.WriteLine($"\n[System Update]: {emp.FirstName} deactivated successfully.");
+    }
+
+
+    public void SearchEmployee()
+    {
+        Console.Write("\nEnter Name to search: ");
+        string searchTerm = Console.ReadLine()?.ToLower() ?? "";
+
+        var results = context.Employees
+            .Include(e => e.Department)
+            .Where(e => e.IsActive &&
+                        (e.FirstName.ToLower().Contains(searchTerm) ||
+                         e.LastName.ToLower().Contains(searchTerm)))
+            .ToList();
+
+        Console.WriteLine($"\n--- Search Results for '{searchTerm}' ---");
+        if (!results.Any())
+        {
+            Console.WriteLine("No matching active records found.");
+            return;
+        }
+
+        foreach (var emp in results)
+        {
+            Console.WriteLine(
+                $"ID: {emp.EmployeeId} | Name: {emp.FirstName} {emp.LastName} | Dept: {emp.Department?.Name}");
+        }
+    }
+
+    }
+

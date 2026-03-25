@@ -1,7 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 
-using EFCoreModelApp;
+// using EFCoreModelApp;
 
 namespace EFCoreModelApp
 {
@@ -29,30 +29,30 @@ namespace EFCoreModelApp
                 entity
                     .HasOne(e => e.Department)
                     .WithMany(d => d.Employees)
-                    .HasForeignKey(e => e.DepartmentID);
+                    .HasForeignKey(e => e.DepartmentId);
             });
 
             modelBuilder.Entity<Department>().HasData(
-                new Department { DepartmentID = 1, Name = "HR" },
-                new Department { DepartmentID = 2, Name = "Engineering" }
+                new Department { DepartmentId = 1, Name = "HR", Employees = new() },
+                new Department { DepartmentId = 2, Name = "Engineering", Employees = new() }
             );
 
             modelBuilder.Entity<Employee>().HasData(
                 new Employee
                 {
-                    EmployeeID = 1,
+                    EmployeeId = 1,
                     FirstName = "Aiko",
                     LastName = "Tanaka",
                     HireDate = DateTime.Now,
-                    DepartmentID = 1
+                    DepartmentId = 1
                 },
                 new Employee
                 {
-                    EmployeeID = 2,
+                    EmployeeId = 2,
                     FirstName = "Zainab",
                     LastName = "Al-Farsi",
                     HireDate = DateTime.Now,
-                    DepartmentID = 2
+                    DepartmentId = 2
                 }
             );
         }
